@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+             body{
+            text-align: center;
+             background-color: #ffffff;
+        }
+             canvas{
+             border: 1px solid #000000;
+                background-color: #0095ff; 
+        }
+    </style>
+
+      <script>
+      window.onload=function(){
+          var canvas = document.getElementById("micanvas");
+          var context = canvas.getContext("2d");
+
+          context.fillStyle="red";
+          context.fillRect(10,10,100,100);  //funcion para dibujar un rectangulo
+
+          context.fillStyle="pink";
+          context.fillRect(200,200,150,150);
+
+          context.fillStyle="rgba(0,0,255,0.5)"; //poner transparencias
+          context.fillRect(300,150,200,100);
+      }
+  </script>
+
+</head>
+
+
+<body>
+    
+</body>
+    <canvas id="micanvas" width="800" height="600"></canvas>
+</html>
