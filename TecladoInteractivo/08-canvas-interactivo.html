@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Key Codes</title>
+   <style>
+    body{
+      background-color: cadetblue;
+      text-align:center;
+    }
+    canvas{
+        background-color: white;
+    }
+   </style>
+  </head>
+  <body>
+    <aside>Presiona las flechas del teclado.</aside>
+    <canvas id="canvas" width ="800" height="600"></canvas>
+    
+    <script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+
+       // context.font = '40pt Calibri';
+       // context.fillStyle = 'purple';
+       // context.fillText('Hello world!', 350, 100);
+
+        var imagen = new Image(); //variable para guardar la imagen
+        imagen.src ="01Among.png"; //fuente de donde toma la imagen
+        imagen.onload = function(){
+            context.drawImage(imagen, 350, 250, 200, 200);
+
+        }
+
+         var imagen2 = new Image(); //variable para guardar la imagen
+        imagen2.src ="02Bread.jpg"; //fuente de donde toma la imagen
+        imagen2.onload = function(){
+            context.drawImage(imagen2, 350, 250, 200, 200);
+
+        }
+         var imagen3 = new Image(); //variable para guardar la imagen
+        imagen3.src ="03Cult.jpg"; //fuente de donde toma la imagen
+        imagen3.onload = function(){
+            context.drawImage(imagen3, 350, 250, 200, 200);
+
+        }
+        context.fillStyle="skyblue";
+        var x = 50;
+        var y = 50;
+        context.fillRect(x,y,100,100);
+
+      function onKeyboardEvent (event) {
+        switch (event.keyCode) {
+        case 38: //movimiento
+          console.log("up!");
+            context.clearRect(0,0, innerWidth, innerHeight); 
+            y-=5;
+            context.fillRect(x,y,100,100); //aqui se mueve el cuadrito
+            context.drawImage(imagen, 350,250,200,200); //mantener la imagen
+          break;
+        case 40:
+          console.log("down!");
+          context.clearRect(0,0, innerWidth, innerHeight);
+          y+=5;
+          context.fillRect(x,y,100,100);
+            context.drawImage(imagen2, 350,250,200,200); //mantener la imagen
+          break;
+        case 37:
+          console.log("left!");
+             context.clearRect(0,0, innerWidth, innerHeight);
+          x-=5;
+          context.fillRect(x,y,100,100);
+          break;
+        case 39:
+          console.log("right!");
+             context.clearRect(0,0, innerWidth, innerHeight);
+          x+=5;
+          context.fillRect(x,y,100,100);
+
+          //LETRAS
+          case 65:
+            console.log("A");
+            context.clearRect(0,0, innerWidth, innerHeight);
+            context.fillRect(x,y,100,100);
+              context.drawImage(imagen, 350,250,200,200);
+
+               case 66:
+            console.log("B");
+            context.clearRect(0,0, innerWidth, innerHeight);
+            context.fillRect(x,y,100,100);
+              context.drawImage(imagen2, 350,250,200,200);
+
+               case 67:
+            console.log("C");
+            context.clearRect(0,0, innerWidth, innerHeight);
+            context.fillRect(x,y,100,100);
+              context.drawImage(imagen3, 350,250,200,200);
+
+
+          break;
+        default:
+          console.log(event.keyCode);
+        }
+      }
+
+      window.addEventListener('keydown', onKeyboardEvent, false);
+    };
+    </script>
+  </body>
+</html>
