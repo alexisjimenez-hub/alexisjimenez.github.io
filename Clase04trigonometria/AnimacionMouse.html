@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rick Sanchez</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <canvas id="canvas" width="1200" height="675"></canvas>
+    <aside>Move mouse on canvas element.</aside>
+
+    <script src="utils.js"></script>
+    <script>
+    window.onload = function () {
+      var canvas = document.getElementById('canvas'),
+          context = canvas.getContext('2d'),
+          mouse = utils.captureMouse(canvas),
+          rick = new Image(),
+          ojo = new Image();
+
+      rick.src = "Rick.jpg";
+      ojo.src = "ojo.png";
+
+      var imagesLoaded = 0;
+      rick.onload = ojo.onload = function() {
+        imagesLoaded++;
+        if(imagesLoaded < 2) return;
+
+        (function drawFrame () {
+          window.requestAnimationFrame(drawFrame, canvas);
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.save();
+
+          var x = canvas.width / 2;
+          var y = canvas.height / 2;
+
+   
+          context.translate(x, y);
+          context.drawImage(rick, -rick.width/2, -rick.height/2);
+
+          var eyeScale = 0.05;
+
+    
+          var leftEyeOffsetX = -150;
+          var leftEyeOffsetY = -145;
+          var rightEyeOffsetX = 45;
+          var rightEyeOffsetY = -135;
+
+       
+          var dx = mouse.x - x;
+          var dy = mouse.y - y;
+          var angle = Math.atan2(dy, dx);
+
+       
+          context.save();
+          context.translate(leftEyeOffsetX, leftEyeOffsetY);
+          context.rotate(angle);
+          context.drawImage(
+            ojo,-ojo.width * eyeScale / 2,-ojo.height * eyeScale / 2,ojo.width * eyeScale,ojo.height * eyeScale
+          );
+          context.restore();
+
+      
+          context.save();
+          context.translate(rightEyeOffsetX, rightEyeOffsetY);
+          context.rotate(angle);
+          context.drawImage(
+            ojo,-ojo.width * eyeScale / 2,-ojo.height * eyeScale / 2,ojo.width * eyeScale,ojo.height * eyeScale
+          );
+          context.restore();
+
+          context.restore();
+        }());
+      };
+    };
+    </script>
+  </body>
+</html>

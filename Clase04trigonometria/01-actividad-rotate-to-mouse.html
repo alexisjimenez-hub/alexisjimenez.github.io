@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rick con ojos que siguen el mouse</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <aside>Move mouse on canvas element.</aside>
+
+    <script src="utils.js"></script>
+    <script>
+    window.onload = function () {
+      var canvas = document.getElementById('canvas'),
+          context = canvas.getContext('2d'),
+          mouse = utils.captureMouse(canvas),
+          rick = new Image(),
+          ojo = new Image();
+
+      rick.src = "Rick.jpg";
+      ojo.src = "ojo.png";
+
+      var imagesLoaded = 0;
+      rick.onload = ojo.onload = function() {
+        imagesLoaded++;
+        if(imagesLoaded < 2) return;
+
+        (function drawFrame () {
+          window.requestAnimationFrame(drawFrame, canvas);
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.save();
+
+          var x = canvas.width / 2;
+          var y = canvas.height / 2;
+
+          // Dibujar Rick
+          context.drawImage(rick, x - rick.width / 2, y - rick.height / 2);
+
+          var eyeScale = 0.07;
+
+          // Offsets individuales por ojo
+          var leftEyeOffsetX = -120;
+          var leftEyeOffsetY = -155;
+          var rightEyeOffsetX = 60;
+          var rightEyeOffsetY = -150;
+
+          // Función para dibujar un ojo siguiendo el mouse
+          function drawEye(offsetX, offsetY) {
+            var eyeX = x + offsetX;
+            var eyeY = y + offsetY;
+
+            var dx = mouse.x - eyeX;
+            var dy = mouse.y - eyeY;
+            var distance = Math.sqrt(dx*dx + dy*dy);
+
+            var maxDist = 10;
+            if(distance > maxDist) {
+              dx = dx / distance * maxDist;
+              dy = dy / distance * maxDist;
+            }
+
+            context.drawImage(
+              ojo,
+              eyeX + dx - ojo.width * eyeScale / 2,
+              eyeY + dy - ojo.height * eyeScale / 2,
+              ojo.width * eyeScale,
+              ojo.height * eyeScale
+            );
+          }
+
+          drawEye(leftEyeOffsetX, leftEyeOffsetY);
+          drawEye(rightEyeOffsetX, rightEyeOffsetY);
+
+          context.restore();
+        }());
+      };
+    };
+    </script>
+  </body>
+</html>
