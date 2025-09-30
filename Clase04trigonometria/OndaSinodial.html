@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Onda Sinodial</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url("FondoMario.jpg");
+        background-size: cover;
+      }
+      canvas {
+        border: 5px solid white; 
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="700" height="565"></canvas>
+    
+    <script src="utils.js"></script>
+    <script src="./classes/ball.js"></script>
+    <script>
+    window.onload = function () {
+      var canvas = document.getElementById('canvas'),
+          context = canvas.getContext('2d'),
+          ball = new Ball(),
+          angle = 0,
+          centerY = 425,
+          range = 50,
+          xspeed = 2,   
+          yspeed = 0.08;
+
+      
+      var estrella = new Image();
+      estrella.src = "Estrella.png";
+      var estrellaWidth = 80;
+      var estrellaHeight = 80;
+      ball.x = canvas.width / 2;
+      ball.y = 150;
+
+      var fondo = new Image();
+      fondo.src = "PaisajeMario.jpg";
+
+      var cubo = new Image();
+      cubo.src = "CuboMario.jpg";
+      var cuboWidth = 100;
+      var cuboHeight = 100;
+      var cuboX = 300;  
+      var cuboY = 120;  
+      var musica = new Audio("MusicaMario.mp3");
+
+
+      ball.draw = function(ctx) {
+        ctx.drawImage(estrella, this.x - estrellaWidth / 2, this.y - estrellaHeight / 2, estrellaWidth, estrellaHeight);
+      };
+
+      canvas.addEventListener("click", function(event) {
+        var rect = canvas.getBoundingClientRect();
+        var mouseX = event.clientX - rect.left;
+        var mouseY = event.clientY - rect.top;
+
+        if (mouseX >= cuboX && mouseX <= cuboX + cuboWidth &&
+            mouseY >= cuboY && mouseY <= cuboY + cuboHeight) {
+          musica.play();
+        }
+      });
+
+      (function drawFrame () {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(fondo, 0, 0, canvas.width, canvas.height);
+        context.drawImage(cubo, cuboX, cuboY, cuboWidth, cuboHeight);
+
+       
+        context.fillStyle = "white";
+        context.font = "30px Arial";
+        context.textAlign = "center";
+        context.fillText("Apreta el cubo", canvas.width / 2, 100);
+
+       ball.x += xspeed;
+        if (ball.x - estrellaWidth / 2 < 0 || ball.x + estrellaWidth / 2 > canvas.width) {
+          xspeed *= -1;
+        }
+
+        ball.y = centerY + Math.sin(angle) * range;
+        angle += yspeed;
+ 
+        ball.draw(context);
+      }());
+    };
+    </script>
+  </body>
+</html>
