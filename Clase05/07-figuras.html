@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Figuras con Canvas</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+ 
+        background-image: url("fondoestrellas.jpg");
+        background-size: cover;       
+        background-position: center;  
+        background-repeat: no-repeat; 
+      }
+
+      canvas {
+        border: 5px solid #333; 
+        border-radius: 15px;    
+        background-color: white; 
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="1000" height="600"></canvas>
+    <script>
+    window.onload = function () {
+      var canvas = document.getElementById('canvas'),
+      context = canvas.getContext('2d');
+      
+      //Casita
+      context.save();
+      context.lineWidth = 2;
+      context.strokeStyle = 'black';
+      context.fillStyle = '#ffcc66';
+
+      context.beginPath();
+      context.fillRect(400, 350, 200, 150);
+      context.strokeRect(400, 350, 200, 150);
+
+      context.beginPath();
+      context.moveTo(400, 350);
+      context.lineTo(500, 250);
+      context.lineTo(600, 350);
+      context.closePath();
+      context.fillStyle = '#cc3333';
+      context.fill();
+      context.stroke();
+
+      context.fillStyle = '#99ccff'; 
+      context.fillRect(420, 380, 40, 40);
+      context.strokeRect(420, 380, 40, 40);
+      context.fillRect(540, 380, 40, 40);
+      context.strokeRect(540, 380, 40, 40);
+
+
+      context.fillStyle = '#663300'; 
+      context.fillRect(485, 420, 30, 80); 
+      context.strokeRect(485, 420, 30, 80);
+      context.restore();
+
+      //Honguito
+      context.save();
+      context.lineWidth = 2;
+      context.strokeStyle = 'brown';
+      context.fillStyle = '#e6d8ad';
+      context.beginPath();
+      context.fillRect(700, 400, 40, 100);
+      context.strokeRect(700, 400, 40, 100);
+      context.beginPath();
+      context.arc(720, 400, 80, Math.PI, 2 * Math.PI);
+      context.fillStyle = 'red';
+      context.fill();
+      context.stroke();
+
+      context.fillStyle = 'white';
+      context.beginPath();
+      context.arc(690, 380, 10, 0, 2 * Math.PI);
+      context.fill();
+      context.beginPath();
+      context.arc(730, 360, 10, 0, 2 * Math.PI);
+      context.fill();
+      context.beginPath();
+      context.arc(760, 390, 8, 0, 2 * Math.PI);
+      context.fill();
+      context.restore();
+
+      //Estrellita
+      context.save();
+      context.lineWidth = 2;
+      context.strokeStyle = 'goldenrod';
+      context.fillStyle = 'gold';
+      context.beginPath();
+      context.moveTo(500, 100);
+      context.lineTo(520, 140);
+      context.lineTo(560, 145);
+      context.lineTo(530, 170);
+      context.lineTo(540, 210);
+      context.lineTo(500, 190);
+      context.lineTo(460, 210);
+      context.lineTo(470, 170);
+      context.lineTo(440, 145);
+      context.lineTo(480, 140);
+      context.closePath();
+      context.fill();
+      context.stroke();
+      context.restore();
+
+      //LUNA
+      context.save();
+      context.beginPath();
+      context.arc(650, 120, 50, 0, 2 * Math.PI);
+      context.fillStyle = 'yellow';
+      context.fill();
+      context.beginPath();
+      context.arc(670, 110, 50, 0, 2 * Math.PI);
+      context.fillStyle = 'white';
+      context.globalCompositeOperation = 'destination-out';
+      context.fill();
+      context.globalCompositeOperation = 'source-over';
+      context.restore();
+
+      //corazonsito
+      context.save();
+      context.lineWidth = 2;
+      context.strokeStyle = 'black';
+      context.fillStyle = 'red';
+      context.beginPath();
+      context.moveTo(150, 450);
+      context.bezierCurveTo(150, 420, 100, 420, 100, 450);
+      context.bezierCurveTo(100, 480, 150, 510, 150, 540);
+      context.bezierCurveTo(150, 510, 200, 480, 200, 450);
+      context.bezierCurveTo(200, 420, 150, 420, 150, 450);
+      context.closePath();
+      context.fill();
+      context.stroke();
+      context.restore();
+    };
+    </script>
+  </body>
+</html>
