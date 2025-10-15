@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Drawing App</title>
+<style>
+body {
+  text-align: center;
+  width: 100%;
+  background: url('Fondo2.gif');
+  background-size: cover;
+}
+
+canvas {
+  background-color: white;
+  border: 6px solid #262222; 
+  border-radius: 15px;      
+  box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+}
+
+.container{
+  margin: 0 auto;
+  width: 1000px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+button{
+  width: 60px;
+  height: 60px;
+  margin: 5px;
+  border-radius: 8px; 
+  border: none;
+}
+
+button:hover{
+  opacity: 0.7;
+}
+
+#black { 
+    background-color:#000000;
+    font: 16px impact; 
+    color: white; 
+}
+#red { 
+    background-color:#E52320; 
+    font: 16px impact; 
+    color: white; 
+}
+#green { 
+    background-color:#349937; 
+    font: 16px impact; 
+    color: white; 
+}
+#blue { 
+    background-color:#438DCC; 
+    font: 16px impact; 
+    color: white; 
+}
+#yellow { 
+    background-color:#F3E600; 
+    font: 16px impact; 
+    color: white; 
+}
+#orange { 
+    background-color:#F49819; 
+    font: 16px impact; 
+    color: white; 
+}
+#pink { 
+    background-color:rgb(255, 1, 179); 
+    font: 16px impact; 
+    color: white; 
+}
+#purple { 
+    background-color:#A6529A; 
+    font: 16px impact; 
+    color: white; 
+}
+#gray { 
+    background-color:#676767; 
+    font: 16px impact; 
+    color: white; 
+}
+#red2 { 
+    background-color:#BB1818; 
+    font: 16px impact; 
+    color: white; 
+}
+#green2 { 
+    background-color:#227833; 
+    font: 16px impact; 
+    color: white; 
+}
+#blue2 { 
+    background-color:#0067AB; 
+    font: 16px impact; 
+    color: white; 
+}
+#yellow2 { 
+    background-color:#AAAA18; 
+    font: 16px impact; 
+    color: white; 
+}
+#orange2 { 
+    background-color:#F48500; 
+    font: 16px impact; 
+    color: white; 
+}
+#pink2 { 
+    background-color:#F7A7F9; 
+    font: 16px impact; 
+    color: white; 
+}
+#purple2 { 
+    background-color:#913B8E; 
+    font: 16px impact; 
+    color: white; 
+}
+
+#borrar{
+  width: 150px;
+  background-color:rgb(255, 0, 0);
+  font: 16px impact;
+  color: white;
+}
+
+.grosor button {
+  background-color: white;
+  font: 16px impact;
+  color: black;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.punto {
+  display: inline-block;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.punto.delgado {
+  width: 6px;
+  height: 6px;
+}
+.punto.medio {
+  width: 12px;
+  height: 12px;
+}
+
+.punto.grueso {
+  width: 18px;
+  height: 18px;
+}
+.grosor button.activo {
+  background-color: black;
+  color: white;
+}
+
+.colores {
+  display: flex;
+  flex-direction: row;
+  gap: 10px; 
+  margin: 10px;
+}
+
+.colores .columna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+aside {
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+<div class="container" id="container">
+
+  <div class="colores">
+    <div class="columna">
+      <button id="black" type="button" value="#000000"></button>
+      <button id="red" type="button" value="#E52320"></button>
+      <button id="green" type="button" value="#349937"></button>
+      <button id="blue" type="button" value="#438DCC"></button>
+      <button id="yellow" type="button" value="#F3E600"></button>
+      <button id="orange" type="button" value="#F49819"></button>
+      <button id="pink" type="button" value="#ff0080"></button>
+      <button id="purple" type="button" value="#A6529A"></button>
+    </div>
+
+    <div class="columna">
+      <button id="gray" type="button" value="#676767"></button>
+      <button id="red2" type="button" value="#BB1818"></button>
+      <button id="green2" type="button" value="#227833"></button>
+      <button id="blue2" type="button" value="#0067AB"></button>
+      <button id="yellow2" type="button" value="#AAAA18"></button>
+      <button id="orange2" type="button" value="#F48500"></button>
+      <button id="pink2" type="button" value="#F7A7F9"></button>
+      <button id="purple2" type="button" value="#913B8E"></button>
+    </div>
+  </div>
+
+  <canvas id="canvas" width="900px" height="700px"></canvas>
+
+  <div class="grosor">
+    <button id="delgado"><span class="punto delgado"></span></button>
+    <button id="medio"><span class="punto medio"></span></button>
+    <button id="grueso"><span class="punto grueso"></span></button>
+    <button id="borrar" type="button">borrar todo</button>
+  </div>
+
+  <div style="display: flex; justify-content: left; margin-top: 20px;">
+    <img id="musica" src="Musica.jpg" alt="Musica" style="width: 100px; cursor: pointer; border-radius: 18px;">
+  </div>
+
+  <audio id="audio" src="Undertale.mp3"></audio>
+
+</div>
+
+<aside></aside>
+
+<script src="utils.js"></script>
+<script>
+window.onload = function () {
+  var canvas = document.getElementById('canvas'),
+      context = canvas.getContext('2d'),
+      mouse = utils.captureMouse(canvas);
+
+  var grosor = 3;
+
+  canvas.addEventListener('mousedown', function () {
+    context.beginPath();
+    context.moveTo(mouse.x, mouse.y);
+    canvas.addEventListener('mousemove', onMouseMove, false);
+  }, false);
+
+  canvas.addEventListener('mouseup', function () {
+    canvas.removeEventListener('mousemove', onMouseMove, false);
+  }, false);
+
+  function onMouseMove () {
+    context.lineTo(mouse.x, mouse.y);
+    context.lineWidth = grosor;
+    context.stroke();
+  }
+
+  var colores = document.getElementsByClassName('colores')[0];
+  colores.addEventListener('click', function(event) {
+    if(event.target.tagName === "BUTTON"){
+      context.strokeStyle = event.target.value;
+    }
+  });
+
+  document.getElementById('borrar').addEventListener('click', function() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  var botonesGrosor = {
+    delgado: 2,
+    medio: 5,
+    grueso: 10
+  };
+
+  for (let id in botonesGrosor) {
+    let btn = document.getElementById(id);
+    btn.addEventListener('click', function() {
+      grosor = botonesGrosor[id];
+    });
+  }
+
+  var musica = document.getElementById('musica');
+  var audio = document.getElementById('audio');
+  musica.addEventListener('click', function() {
+    audio.play();
+  });
+
+};
+</script>
+</body>
+</html>
