@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SimulacionReloj</title>
+    <style>
+      canvas { 
+        display: block;
+        margin: 0 auto;
+        background-image: url("Reloj.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      body {
+        background-color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="800"></canvas>
+
+    <script>
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      const horaImg = new Image();
+      const minutoImg = new Image();
+      const segundoImg = new Image();
+      const puntoImg = new Image();
+
+      horaImg.src = "Hora.png";
+      minutoImg.src = "Minutos.png";
+      segundoImg.src = "Segundos.png";
+      puntoImg.src = "Punto.png";
+
+      const cx = 400;
+      const cy = 400;
+
+      let horas = 12;    
+      let minutos = 10;
+      let segundos = 0;
+      const velocidad = 120;  
+
+      let lastTime = performance.now(); 
+
+      function drawFrame(now) {
+        requestAnimationFrame(drawFrame);
+        const delta = (now - lastTime) / 1000; 
+        lastTime = now;
+
+        segundos += delta * velocidad;
+        if (segundos >= 60) { segundos -= 60; minutos++; }
+        if (minutos >= 60) { minutos -= 60; horas++; }
+        if (horas >= 12) { horas -= 12; }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const radHora = ((horas + minutos / 60) * 30) * Math.PI / 180;
+        const radMinuto = ((minutos + segundos / 60) * 6) * Math.PI / 180;
+        const radSegundo = (segundos * 6) * Math.PI / 180;
+
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(radHora);
+        ctx.drawImage(horaImg, -horaImg.width / 2, -horaImg.height / 2);
+        ctx.restore();
+
+ 
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(radMinuto);
+        ctx.drawImage(minutoImg, -minutoImg.width / 2, -minutoImg.height / 2);
+        ctx.restore();
+
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(radSegundo);
+        ctx.drawImage(segundoImg, -segundoImg.width / 2, -segundoImg.height / 2);
+        ctx.restore();
+
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.drawImage(puntoImg, -puntoImg.width / 2, -puntoImg.height / 2);
+        ctx.restore();
+      }
+
+      requestAnimationFrame(drawFrame);
+    };
+    </script>
+  </body>
+</html>
